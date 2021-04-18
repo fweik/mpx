@@ -8,7 +8,7 @@
 namespace mpx {
 struct DataType {
   MPI_Datatype type = MPI_DATATYPE_NULL;
-  size_t count = 0;
+  int count = 0;
 
   bool operator==(DataType const &rhs) const {
     return std::tie(type, count) == std::tie(rhs.type, rhs.count);

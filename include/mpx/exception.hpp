@@ -4,7 +4,6 @@
 #include <mpi.h>
 
 #include <stdexcept>
-
 namespace mpx {
 struct exception : std::exception {
   exception(int error_code) : error_code(error_code) {}

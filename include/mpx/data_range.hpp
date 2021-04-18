@@ -7,12 +7,15 @@
 
 namespace mpx {
 template <class T> struct DataRange {
-  T *data;
+  std::conditional_t<std::is_const_v<T>, const void, void> *data;
   DataType type;
 };
 
 template <class T, class = void> struct data_range_for {
   DataRange<T> operator()(T &e) const {
+    return {std::addressof(e), data_type_for<std::remove_cv_t<T>>{}()};
+  }
+  DataRange<const T> operator()(T const &e) const {
     return {std::addressof(e), data_type_for<std::remove_cv_t<T>>{}()};
   }
 };

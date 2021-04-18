@@ -1,6 +1,7 @@
 #ifndef MPX_COMMUNICATOR_HPP
 #define MPX_COMMUNICATOR_HPP
 
+#include <mpx/api.hpp>
 #include <mpx/exception.hpp>
 
 #include <mpi.h>
@@ -26,16 +27,16 @@ using communicator = MPI_Comm;
 static auto world = MPI_COMM_WORLD;
 static auto self = MPI_COMM_SELF;
 
-Rank rank(communicator const &comm) {
+template <class Api = api::mpi> Rank rank(communicator const &comm) {
   int rank;
-  check_error_code(MPI_Comm_rank(comm, std::addressof(rank)));
+  Api::call(&MPI_Comm_rank, comm, std::addressof(rank));
 
   return Rank{rank};
 }
 
-int size(communicator const &comm) {
+template <class Api = api::mpi> int size(communicator const &comm) {
   int size;
-  check_error_code(MPI_Comm_size(comm, std::addressof(size)));
+  Api::call(&MPI_Comm_size, comm, std::addressof(size));
 
   return size;
 }
