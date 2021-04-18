@@ -22,7 +22,7 @@ std::enable_if_t<std::is_default_constructible_v<T>, T>
 recv(communicator const &comm, Rank to, Tag tag) {
   T data;
 
-  recv(comm, to, tag, data);
+  recv<Api>(comm, to, tag, data);
 
   return data;
 }
