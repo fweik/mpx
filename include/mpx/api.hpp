@@ -18,16 +18,7 @@ struct mpi {
 };
 
 struct null {
-  template <class... Args> static void call(int (*fp)(Args...), Args... args) {
-    if constexpr (std::is_invocable_v<decltype(fp), MPI_Comm, int *>) {
-      if (fp == &MPI_Comm_rank) {
-        *std::get<1>(std::tie(args...)) = 0;
-      }
-      if (fp == &MPI_Comm_size) {
-        *std::get<1>(std::tie(args...)) = 1;
-      }
-    }
-  }
+  template <class... Args> static void call(int (*)(Args...), Args...) {}
 };
 
 template <class Api = null> struct patched {
