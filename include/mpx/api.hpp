@@ -43,9 +43,9 @@ template <class Api = null> struct patched {
 
     if (it != patches().end()) {
       (*reinterpret_cast<decltype(fp)>(it->second))(args...);
+    } else {
+      Api::call(fp, args...);
     }
-
-    Api::call(fp, args...);
   }
 };
 
