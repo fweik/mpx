@@ -22,6 +22,9 @@ template <class T, class = void> struct trivial_opt_in : std::false_type {};
 template <class T>
 struct data_type_for<T, std::enable_if_t<std::is_trivially_copyable_v<T> and
                                          trivial_opt_in<T>::value>> {
+  template <class /* Api */ = void> static DataType get() {
+    return {MPI_BYTE, sizeof(T)};
+  }
   DataType operator()() const { return {MPI_BYTE, sizeof(T)}; }
 };
 
@@ -80,6 +83,9 @@ template <> struct is_builtin_type<unsigned long long> : std::true_type {
 
 template <class T>
 struct data_type_for<T, std::enable_if_t<is_builtin_type<T>::value>> {
+  template <class /* Api */ = void> static DataType get() {
+    return {is_builtin_type<T>::mpi_type(), 1};
+  }
   DataType operator()() const { return {is_builtin_type<T>::mpi_type(), 1}; }
 };
 } // namespace mpx
