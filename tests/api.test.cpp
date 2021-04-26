@@ -28,3 +28,10 @@ TEST_CASE("log") {
 
   CHECK(call_compare(log.at(0), fp, 5, 3.1f));
 }
+
+TEST_CASE("fixed_return_value") {
+  auto constexpr return_value = 13;
+
+  CHECK(mpx::api::fixed_fixed_return_value<return_value>::eval(
+            static_cast<int (*)()>([]() { return 5; })) == return_value);
+}
