@@ -34,6 +34,12 @@ template <class Api> struct log {
     Api::eval(fp, args...);
   }
 
+  template <class F> static auto with_log(F f) {
+    call_log().clear();
+    f();
+    return call_log();
+  }
+
 private:
   static auto &call_log() {
     static std::vector<log_entry> m_log;
