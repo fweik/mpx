@@ -23,20 +23,23 @@ struct log_entry {
 template <class Api> struct log {
   template <class R, class... Args>
   static void eval(R (*fp)(Args...), Args... args) {
-    call_log().emplace_back(log_entry{fp, {args...}});
+    if (call_log())
+      call_log()->emplace_back(log_entry{fp, {args...}});
 
     Api::eval(fp, args...);
   }
 
   template <class F> static auto with_log(F f) {
-    call_log().clear();
+    std::vector<log_entry> log;
+    call_log() = &log;
     f();
-    return call_log();
+    call_log() = nullptr;
+    return log;
   }
 
 private:
   static auto &call_log() {
-    static std::vector<log_entry> m_log;
+    static std::vector<log_entry> *m_log = nullptr;
 
     return m_log;
   }
