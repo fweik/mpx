@@ -32,6 +32,6 @@ TEST_CASE("log") {
 TEST_CASE("fixed_return_value") {
   auto constexpr return_value = 13;
 
-  CHECK(mpx::api::fixed_fixed_return_value<return_value>::eval(
+  CHECK(mpx::api::fixed_return_value<return_value>::eval(
             static_cast<int (*)()>([]() { return 5; })) == return_value);
 }

@@ -10,7 +10,7 @@ namespace mpx::api {
  *
  * @tparam return_value Value to return.
  */
-template <auto return_value> struct fixed_fixed_return_value {
+template <auto return_value> struct fixed_return_value {
   using return_type = decltype(return_value);
 
   template <class... Args>

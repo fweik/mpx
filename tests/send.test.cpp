@@ -3,7 +3,7 @@
 #include <mpx/send.hpp>
 
 TEST_CASE("send") {
-  using api = mpx::api::log<mpx::api::fixed_fixed_return_value<MPI_SUCCESS>>;
+  using api = mpx::api::log<mpx::api::fixed_return_value<MPI_SUCCESS>>;
 
   mpx::communicator comm;
   mpx::Rank to{5};
