@@ -21,10 +21,10 @@ TEST_CASE("throw_on_error") {
 TEST_CASE("compare") { CHECK(mpx::api::compare({1, 2., 3}, 1, 2., 3)); }
 
 TEST_CASE("log") {
-  auto const &log = mpx::api::log<mpx::api::null>::scope_log();
+  using api = mpx::api::log<mpx::api::null>;
 
   void (*fp)(int, float) = [](int, float) {};
-  mpx::api::log<mpx::api::null>::eval(fp, 5, 3.1f);
+  auto log = api::with_log([=]() { api::eval(fp, 5, 3.1f); });
 
   CHECK(call_compare(log.at(0), fp, 5, 3.1f));
 }

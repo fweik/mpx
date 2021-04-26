@@ -21,12 +21,6 @@ struct log_entry {
  * @tparam Api Backend api to which the calls are forwarded.
  */
 template <class Api> struct log {
-  static auto const &scope_log() {
-    call_log().clear();
-
-    return call_log();
-  }
-
   template <class R, class... Args>
   static void eval(R (*fp)(Args...), Args... args) {
     call_log().emplace_back(log_entry{fp, {args...}});
