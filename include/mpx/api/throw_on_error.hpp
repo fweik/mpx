@@ -7,8 +7,8 @@ namespace mpx::api {
  *
  * This wrapper compares the return value  of functions
  * returning an error code to an value indicating success.
- * If it differs an exception which captuers the error code
- * is thrown. Effectivly this turns error codes into exceptions.
+ * If it differs, an exception which captures the error code
+ * is thrown. Effectively this turns error codes into exceptions.
  *
  * @tparam ok_code Success error code
  */
