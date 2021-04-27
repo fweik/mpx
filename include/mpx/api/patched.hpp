@@ -30,9 +30,9 @@ template <class Api> struct patched {
   }
 
   template <class R, class... Args>
-  static R eval(R (*fp)(Args...), Args... args) {
+  static R invoke(R (*fp)(Args...), Args... args) {
     if (not patches()) {
-      return Api::eval(fp, args...);
+      return Api::invoke(fp, args...);
     }
 
     auto it = std::find_if(
@@ -43,7 +43,7 @@ template <class Api> struct patched {
     if (it != patches()->end()) {
       return (*reinterpret_cast<decltype(fp)>(it->to))(args...);
     } else {
-      return Api::eval(fp, args...);
+      return Api::invoke(fp, args...);
     }
   }
 

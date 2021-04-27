@@ -20,12 +20,12 @@ template <auto ok_code = 0> struct throw_on_error {
   };
 
   template <class R, class... Args>
-  static decltype(auto) eval(R (*fp)(Args...), Args... args) {
+  static decltype(auto) invoke(R (*fp)(Args...), Args... args) {
     return (*fp)(args...);
   }
 
   template <class... Args>
-  static void eval(error_code_type (*fp)(Args...), Args... args) {
+  static void invoke(error_code_type (*fp)(Args...), Args... args) {
     auto const error_code = (*fp)(args...);
 
     if (error_code != ok_code) {

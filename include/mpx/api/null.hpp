@@ -10,7 +10,7 @@ namespace mpx::api {
  * The calee is required to return void.
  */
 struct null {
-  template <class... Args> static void eval(void (*)(Args...), Args...) {}
+  template <class... Args> static void invoke(void (*)(Args...), Args...) {}
 };
 } // namespace mpx::api
 

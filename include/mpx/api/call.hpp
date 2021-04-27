@@ -10,7 +10,7 @@ namespace mpx::api {
  */
 struct call {
   template <class R, class... Args>
-  static decltype(auto) eval(R (*fp)(Args...), Args... args) {
+  static decltype(auto) invoke(R (*fp)(Args...), Args... args) {
     return (*fp)(args...);
   }
 };

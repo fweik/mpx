@@ -14,7 +14,7 @@ template <auto return_value> struct fixed_return_value {
   using return_type = decltype(return_value);
 
   template <class... Args>
-  static return_type eval(return_type (*)(Args...), Args...) {
+  static return_type invoke(return_type (*)(Args...), Args...) {
     return return_value;
   }
 };

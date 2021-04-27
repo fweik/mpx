@@ -22,11 +22,11 @@ struct log_entry {
  */
 template <class Api> struct log {
   template <class R, class... Args>
-  static void eval(R (*fp)(Args...), Args... args) {
+  static void invoke(R (*fp)(Args...), Args... args) {
     if (call_log())
       call_log()->emplace_back(log_entry{fp, {args...}});
 
-    Api::eval(fp, args...);
+    Api::invoke(fp, args...);
   }
 
   template <class F> static auto with_log(F f) {
