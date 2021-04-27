@@ -6,6 +6,7 @@
 #include <mpx/api/null.hpp>
 #include <mpx/api/throw_on_error.hpp>
 #include <mpx/api/fixed_return_value.hpp>
+#include <mpx/api/patched.hpp>
 
 namespace mpx {
 using default_api = api::throw_on_error<0>;
