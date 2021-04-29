@@ -45,17 +45,27 @@ private:
   }
 };
 
+namespace detail {
 template <class... Ts>
 bool compare(std::vector<std::any> const &anys, Ts... vals) {
   auto it = anys.begin();
   return (sizeof...(Ts) == anys.size()) and
          ((std::any_cast<Ts>(*it++) == vals) && ...);
 }
+} // namespace detail
 
+/**
+ * @brief Compare a logged call to a function pointer.
+ *
+ * @param entry The long entry to comapre.
+ * @param fp Callee to compare
+ * @param args Arguments to compare.
+ * @return True if the logged call matches the callee and the arguements.
+ */
 template <class R, class... Args>
 bool call_compare(log_entry const &entry, R (*fp)(Args...), Args... args) {
   return (std::any_cast<decltype(fp)>(entry.callee) == fp) and
-         compare(entry.args, args...);
+         detail::compare(entry.args, args...);
 }
 } // namespace mpx::api
 

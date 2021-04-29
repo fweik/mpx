@@ -19,7 +19,7 @@ TEST_CASE("throw_on_error") {
       static_cast<int (*)()>([]() { return 5; })));
 }
 
-TEST_CASE("compare") { CHECK(mpx::api::compare({1, 2., 3}, 1, 2., 3)); }
+TEST_CASE("compare") { CHECK(mpx::api::detail::compare({1, 2., 3}, 1, 2., 3)); }
 
 TEST_CASE("log") {
   using api = mpx::api::log<mpx::api::null>;
