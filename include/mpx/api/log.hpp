@@ -6,9 +6,15 @@
 #include <vector>
 
 namespace mpx::api {
+/**
+ * @brief Log entry for a signle call.
+ *
+ * This records a single call logged by @c log.
+ */
 struct log_entry {
+  /** Pointer to function that was called. */
   std::any callee;
-
+  /** Arguments passed to the call. */
   std::vector<std::any> args;
 };
 
@@ -57,7 +63,7 @@ bool compare(std::vector<std::any> const &anys, Ts... vals) {
 /**
  * @brief Compare a logged call to a function pointer.
  *
- * @param entry The long entry to comapre.
+ * @param entry The long entry to compare.
  * @param fp Callee to compare
  * @param args Arguments to compare.
  * @return True if the logged call matches the callee and the arguements.
