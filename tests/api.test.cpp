@@ -13,10 +13,12 @@ TEST_CASE("null") {
 }
 
 TEST_CASE("throw_on_error") {
-  CHECK_NOTHROW(mpx::api::throw_on_error<5>::invoke(
-      static_cast<int (*)()>([]() { return 5; })));
-  CHECK_THROWS(mpx::api::throw_on_error<4>::invoke(
-      static_cast<int (*)()>([]() { return 5; })));
+  using success_on_5 = mpx::api::throw_on_error<5, mpx::api::call>;
+  CHECK_NOTHROW(
+      success_on_5::invoke(static_cast<int (*)()>([]() { return 5; })));
+  using success_on_4 = mpx::api::throw_on_error<4, mpx::api::call>;
+  CHECK_THROWS(
+      success_on_4::invoke(static_cast<int (*)()>([]() { return 5; })));
 }
 
 TEST_CASE("compare") { CHECK(mpx::api::detail::compare({1, 2., 3}, 1, 2., 3)); }

@@ -11,8 +11,9 @@ namespace mpx::api {
  * is thrown. Effectively this turns error codes into exceptions.
  *
  * @tparam ok_code Success error code
+ * @tparam Api Backend to make the function calls.
  */
-template <auto ok_code = 0> struct throw_on_error {
+template <auto ok_code, class Api> struct throw_on_error {
   using error_code_type = decltype(ok_code);
 
   struct exception {
@@ -20,13 +21,13 @@ template <auto ok_code = 0> struct throw_on_error {
   };
 
   template <class R, class... Args>
-  static decltype(auto) invoke(R (*fp)(Args...), Args... args) {
-    return (*fp)(args...);
+  static R invoke(R (*fp)(Args...), Args... args) {
+    return Api::invoke(fp, args...);
   }
 
   template <class... Args>
   static void invoke(error_code_type (*fp)(Args...), Args... args) {
-    auto const error_code = (*fp)(args...);
+    auto const error_code = Api::invoke(fp, args...);
 
     if (error_code != ok_code) {
       throw exception{error_code};
